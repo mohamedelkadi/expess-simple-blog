@@ -1,0 +1,17 @@
+{
+  "name": "node-cms",
+  "description": "simple cms with node",
+  "main": "app.js",
+  "authors": [
+    "mohamedelkadi <molhm66@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mohamedelkadi/node-cms",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
