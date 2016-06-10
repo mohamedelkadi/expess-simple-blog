@@ -3,6 +3,7 @@
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{untitled1 node_modules}" />
     <file url="file://$PROJECT_DIR$/libs/model.js" libraries="{ECMAScript 6}" />
+    <file url="file://$PROJECT_DIR$/models/post.js" libraries="{ECMAScript 6}" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

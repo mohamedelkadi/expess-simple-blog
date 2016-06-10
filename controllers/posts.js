@@ -1,7 +1,7 @@
 /**
  * Created by molhm on 6/8/16.
  */
-var Post = require('../libs/model')("posts");
+var Post = require('../models/post');
 
 exports.store = function (req, res, next) {
     Post.insertOne(req.body, function (err, data) {

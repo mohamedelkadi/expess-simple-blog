@@ -1,16 +1,16 @@
 /**
  * Created by molhm on 6/8/16.
  */
+var validate = require('express-jsonschema').validate;
 var express = require('express');
 var router = express.Router();
 var postsController = require('../controllers/posts');
-
+var Post = require('../models/post');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     postsController.index(req, res, next);
 });
-
-router.post('/new', function (req, res, next) {
+router.post('/new', validate({"body":Post.schema}), function (req, res, next) {
 
     postsController.store(req, res, next);
 });

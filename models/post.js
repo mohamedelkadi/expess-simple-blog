@@ -1,3 +1,18 @@
-/**
- * Created by molhm on 6/8/16.
- */
+const model = require('../libs/model');
+
+var post = Object.create(model("posts"));
+post.schema = {
+    type: 'object',
+    properties: {
+        title: {
+            type: 'string',
+            required: true
+        },
+        content: {
+            type: 'string',
+            required: true
+        }
+    }
+
+}
+module.exports = post;

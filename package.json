@@ -13,7 +13,8 @@
     "mongodb": "^2.1.18",
     "morgan": "^1.7.0",
     "pug": "~2.0.0-beta2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "express-jsonschema": "latest"
   },
   "devDependencies": {
     "npmlog": "^2.0.4",
