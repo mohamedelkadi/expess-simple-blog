@@ -8,12 +8,17 @@ block content
               <div class="col-xs-6 col-lg-4">
                             <h2>{{title}}</h2>
                             <p>{{content}} </p>
-                            <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                            <p><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
               </div>
           {{/each}}
 
+  script#show-post-template(type='text/x-handlebars-template').
+    <div class="row">
+        <h2>{{title}}</h2>
+        <div>{{content}}</h2>
+        <p><a class="btn btn-default" href="#posts" role="button">View all »</a></p>
 
 
-  div#posts
+  div#posts.container
 
 
