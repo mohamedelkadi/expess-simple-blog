@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  h1= title
+  h1.text-center= title
   script#list-posts-template(type='text/x-handlebars-template').
       <div class="row">
           {{#each posts}}
               <div class="col-xs-6 col-lg-4">
                             <h2>{{title}}</h2>
-                            <p>{{content}} </p>
+                            <p>{{description}} </p>
                             <p><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
               </div>
           {{/each}}

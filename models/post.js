@@ -11,6 +11,9 @@ post.schema = {
         content: {
             type: 'string',
             required: true
+        },
+        description:{
+            type:'string'
         }
     }
 
