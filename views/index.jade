@@ -1,24 +1,36 @@
 extends layout
 
 block content
-  h1.text-center= title
-  script#list-posts-template(type='text/x-handlebars-template').
-      <div class="row">
-          {{#each posts}}
-              <div class="col-xs-6 col-lg-4">
-                            <h2>{{title}}</h2>
-                            <p>{{description}} </p>
-                            <p><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
-              </div>
-          {{/each}}
+    h1.text-center= title
+    script#list-posts-template(type='text/x-handlebars-template').
+        <div class="row">
+            {{#each posts}}
+                <div class="col-xs-6 col-lg-4">
+                              <h2>{{title}}</h2>
+                              <p>{{description}} </p>
+                              <p><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
+                </div>
+            {{/each}}
 
-  script#show-post-template(type='text/x-handlebars-template').
-    <div class="row">
-        <h2>{{title}}</h2>
-        <div>{{content}}</h2>
-        <p><a class="btn btn-default" href="#posts" role="button">View all »</a></p>
+    script#show-post-template(type='text/x-handlebars-template').
+        <div class="row">
+            <h2>{{title}}</h2>
+            <div>{{content}}</h2>
+            <p><a class="btn btn-default" href="#posts" role="button">View all »</a></p>
+
+    script#create-post-template(type='text/x-handlebars-template').
+        <div class="row">
+        <form class="form" method="post" action="/posts/new">
+          <label> title </label>
+          <input  name = "title" class="form-control" type="text"></input>
+          <label> description </label>
+          <input name="description" class="form-control" type="text"></input>
+          <label> description </label>
+         <textarea name="content" class="form-control" type="text"></textarea>
+         <input type="submit" value="submit">
+        </form>
 
 
-  div#posts.container
+    div#posts.container
 
 
