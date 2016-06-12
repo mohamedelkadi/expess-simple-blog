@@ -1,2 +1,3 @@
 # node-cms
-real time cms by node js and express 
+simple single page  blog using express and mongodb in the back end  and 
+jquery and handlebars in the front end  
