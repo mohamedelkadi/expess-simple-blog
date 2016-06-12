@@ -23,7 +23,7 @@ router.get('/:id', function (req, res, next) {
     postsController.show(req, res, next);
 });
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/delete/:id', function (req, res, next) {
     postsController.delete(req, res, next);
 });
 

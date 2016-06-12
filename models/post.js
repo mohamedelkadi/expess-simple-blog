@@ -6,14 +6,20 @@ post.schema = {
     properties: {
         title: {
             type: 'string',
-            required: true
+            required: true,
+            minLength: 5,
+            maxLength: 20,
+            message:"required and can't be empty"
         },
         content: {
             type: 'string',
-            required: true
+            required: true,
+            minLength: 10,
+            maxLength: 500,
+            message:"required and can't be empty"
         },
         description:{
-            type:'string'
+            type:'string',
         }
     }
 

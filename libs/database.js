@@ -8,8 +8,10 @@ module.exports = function db() {
         var url = 'mongodb://localhost:27017/node_cms';
 // Use connect method to connect to the Server
         MongoClient.connect(url, function (err, db) {
-            if (err)
+            if (err) {
                 reject(err);
+                console.log(err);
+            }
             else
                 resolve(db);
             //db.close();

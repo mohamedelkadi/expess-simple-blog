@@ -15,6 +15,7 @@ block content
     script#show-post-template(type='text/x-handlebars-template').
         <div class="row">
             <h2>{{title}}</h2>
+            <a href="#posts/delete/{{_id}}">delete</a>-<a href="#posts/edit/{{_id}}">edit</a>
             <div>{{content}}</h2>
             <p><a class="btn btn-default" href="#posts" role="button">View all »</a></p>
 
@@ -30,7 +31,29 @@ block content
          <input type="submit" value="submit">
         </form>
 
+    script#edit-post-template(type='text/x-handlebars-template').
+        <div class="row">
+        <form class="form" method="post" action="/posts/{{_id}}">
+          <input type="hidden" name ="_method" value="PUT">
+          <label> title </label>
+          <input  name = "title" class="form-control"
+          type="text" value={{title}}></input>
+          <label> description </label>
+          <input name="description" class="form-control"
+           value={{description}} type="text"></input>
+          <label> description </label>
+         <textarea name="content" class="form-control" type="text">{{content}}</textarea>
+         <input type="submit" value="submit">
+        </form>
 
-    div#posts.container
+    script#home-template(type='text/x-handlebars-template').
+        <div class="jumbotron">
+                    <h1>Hello, world!</h1>
+                    <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+                  </div>
 
+    div#main.container
 
+    footer.footer
+        .container
+            p.text-muted simple blog by node and jquery
