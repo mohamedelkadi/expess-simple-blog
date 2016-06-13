@@ -21,28 +21,19 @@ html
               #bs-example-navbar-collapse-1.collapse.navbar-collapse
                   ul.nav.navbar-nav
                       li.active
-                          a(href='/')
-                              | Home
+                          a(href='/#')
+                              i.glyphicon.glyphicon-home
+                              |  Home
                               span.sr-only (current)
                       li
-                          a(href='#posts') posts
+                          a(href='#posts')
+                              i.glyphicon.glyphicon-tag
+                              |  Posts
                   ul.nav.navbar-nav.navbar-right
                       li
-                          a(href='#posts/new') Add post
-                      li.dropdown
-                          a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                              | Dropdown
-                              span.caret
-                          ul.dropdown-menu
-                              li
-                                  a(href='#') Action
-                              li
-                                  a(href='#') Another action
-                              li
-                                  a(href='#') Something else here
-                              li.divider(role='separator')
-                              li
-                                  a(href='#') Separated link
+                          a(href='#posts/new')
+                              i.glyphicon.glyphicon-plus
+                              |Add post
               // /.navbar-collapse
           // /.container-fluid
 

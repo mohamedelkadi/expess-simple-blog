@@ -1,59 +1,75 @@
 extends layout
 
 block content
-    h1.text-center= title
     script#list-posts-template(type='text/x-handlebars-template').
-        <div class="row">
+        <div class="row ">
             {{#each posts}}
-                <div class="col-xs-6 col-lg-4">
+                <div class="col-xs-6 col-lg-4 ">
+                          <div class="post">
                               <h2>{{title}}</h2>
                               <p>{{description}} </p>
-                              <p><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
+                              <p class="center-text"><a class="btn btn-default" href="#posts/{{_id}}" role="button">View details »</a></p>
+                          </div>
                 </div>
             {{/each}}
 
     script#show-post-template(type='text/x-handlebars-template').
-        <div class="row">
-            <h2>{{title}}</h2>
-            <a href="#posts/delete/{{_id}}">delete</a>-<a href="#posts/edit/{{_id}}">edit</a>
-            <div>{{content}}</h2>
-            <p><a class="btn btn-default" href="#posts" role="button">View all »</a></p>
+        <div class="row container">
+            <h2>{{title}}
+
+            </h2>
+            <span class='control'>
+            <a href="#posts/delete/{{_id}}" >
+            <i class="glyphicon glyphicon-remove" /> remove
+            </a>
+            <a href="#posts/edit/{{_id}}" >
+            <i class="glyphicon glyphicon-edit" /> edit
+            </a></span>
+            <article>
+            <div>{{content}}</div>
+            </article>
 
     script#create-post-template(type='text/x-handlebars-template').
-        <div class="row">
-        <form class="form" method="post" action="/posts/new">
+        <div class="row container">
+         <input type="hidden" name ="_method" value="POST">
+         <input type="hidden" name ="action" value="/posts/new">
           <label> title </label>
           <input  name = "title" class="form-control" type="text"></input>
           <label> description </label>
           <input name="description" class="form-control" type="text"></input>
-          <label> description </label>
+          <label> content </label>
          <textarea name="content" class="form-control" type="text"></textarea>
-         <input type="submit" value="submit">
+         <input type="submit" value="submit" class="btn btn-default" >
         </form>
 
     script#edit-post-template(type='text/x-handlebars-template').
-        <div class="row">
-        <form class="form" method="post" action="/posts/{{_id}}">
+        <div class="row container">
+        <form class="form" >
           <input type="hidden" name ="_method" value="PUT">
+          <input type="hidden" name ="action" value="/posts/{{_id}}">
           <label> title </label>
           <input  name = "title" class="form-control"
           type="text" value={{title}}></input>
           <label> description </label>
           <input name="description" class="form-control"
            value={{description}} type="text"></input>
-          <label> description </label>
+          <label> content </label>
          <textarea name="content" class="form-control" type="text">{{content}}</textarea>
-         <input type="submit" value="submit">
+         <input type="submit" value="submit" class="btn btn-default">
         </form>
 
     script#home-template(type='text/x-handlebars-template').
         <div class="jumbotron">
-                    <h1>Hello, world!</h1>
-                    <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+                    <h1>Express simple blog!</h1>
+                    <p>simple single page  blog using express and jquery .</p>
                   </div>
+    script#notice-template(type='text/x-handlebars-template').
+        <h4 class="alert {{type}}" > {{msg}}  </h4>
 
     div#main.container
+        p#notice.center-block.text-center
 
+        div#content
     footer.footer
         .container
             p.text-muted simple blog by node and jquery

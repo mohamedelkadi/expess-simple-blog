@@ -6,3 +6,31 @@
     height: 60px;
     background-color: #f5f5f5;
 }
+
+body {
+    background-color: #f1f1f1
+}
+#main{
+    min-height: 540px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+.control{
+    font-size: 14px;
+    margin: 10px;
+
+}
+ .control a {
+    color: #999999;
+}
+
+ article{
+     border: 1px solid gainsboro;
+     padding: 2px;
+ }
+
+ .post{
+     border: 1px solid gainsboro;
+     margin: 4px;
+     padding: 4px;
+ }
