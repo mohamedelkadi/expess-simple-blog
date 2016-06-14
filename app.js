@@ -28,21 +28,18 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
+
+app.use(express.static(path.join(__dirname, 'bower_components')));
+app.use(express.static(path.join(__dirname, 'public')));
+//expressDebug(app,{});
 app.use(function (req, res, next) {
     if (req.body['_method']) {
         req.method = req.body['_method'];
 
     }
-    console.log('sess', req.session);
-    req.session.name = "mohamed";
-    console.log('sess', req.session.name);
-
+    console.log(req.cookies);
     next()
-})
-app.use(express.static(path.join(__dirname, 'bower_components')));
-app.use(express.static(path.join(__dirname, 'public')));
-//expressDebug(app,{});
-
+});
 app.use('/', routes);
 app.use('/users', users);
 app.use('/posts', posts)

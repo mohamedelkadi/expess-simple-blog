@@ -3,6 +3,7 @@ extends layout
 block content
     script#list-posts-template(type='text/x-handlebars-template').
         <div class="row ">
+
             {{#each posts}}
                 <div class="col-xs-6 col-lg-4 ">
                           <div class="post">
@@ -18,23 +19,27 @@ block content
             <h2>{{title}}
 
             </h2>
-            <span class='control'>
-            <a href="#posts/delete/{{_id}}" >
-            <i class="glyphicon glyphicon-remove" /> remove
-            </a>
-            <a href="#posts/edit/{{_id}}" >
-            <i class="glyphicon glyphicon-edit" /> edit
-            </a></span>
+            {{#if logged}}
+                <span class='control'>
+                <a href="#posts/delete/{{_id}}" >
+                <i class="glyphicon glyphicon-remove" /> remove
+                </a>
+                <a href="#posts/edit/{{_id}}" >
+                <i class="glyphicon glyphicon-edit" /> edit
+                </a></span>
+            {{/if}}
             <article>
             <div>{{content}}</div>
             </article>
 
     script#create-post-template(type='text/x-handlebars-template').
+        <form class="form" >
         <div class="row container">
          <input type="hidden" name ="_method" value="POST">
+         <input type="hidden" name ="form_id" value="create_post">
          <input type="hidden" name ="action" value="/posts/new">
           <label> title </label>
-          <input  name = "title" class="form-control" type="text"></input>
+          <input name = "title" class="form-control" type="text"></input>
           <label> description </label>
           <input name="description" class="form-control" type="text"></input>
           <label> content </label>
@@ -47,6 +52,7 @@ block content
         <form class="form" >
           <input type="hidden" name ="_method" value="PUT">
           <input type="hidden" name ="action" value="/posts/{{_id}}">
+          <input type="hidden" name ="form_id" value="edit_post">
           <label> title </label>
           <input  name = "title" class="form-control"
           type="text" value={{title}}></input>
@@ -65,7 +71,30 @@ block content
                   </div>
     script#notice-template(type='text/x-handlebars-template').
         <h4 class="alert {{type}}" > {{msg}}  </h4>
+    script#redirect-template(type='text/x-handlebars-template').
 
+    script#login-template(type='text/x-handlebars-template').
+        <div class="row">
+            <form class="form">
+               <input type="hidden" name="action" value="/users/login">
+               <input type="hidden" name="_method" value="POST">
+               <input type="hidden" name ="form_id" value="login">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> remember me
+                </label>
+              </div>
+              <input type="submit" class="btn btn-default" value="submit">
+            </form>
+        </div>
     div#main.container
         p#notice.center-block.text-center
 

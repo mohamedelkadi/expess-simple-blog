@@ -6,12 +6,14 @@ var notices = [];
 var templates = [];
 var routes = [];
 //////////////////////////////TEMPLATES//////////////////////////////////
-
+console.log('cook', document.cookie);
 templates['posts'] = Handlebars.compile($("#list-posts-template").html());
 templates['post'] = Handlebars.compile($("#show-post-template").html());
 templates['create'] = Handlebars.compile($("#create-post-template").html());
 templates['home'] = Handlebars.compile($("#home-template").html());
 templates['edit'] = Handlebars.compile($("#edit-post-template").html());
+templates['login'] = Handlebars.compile($("#login-template").html());
+templates['redirect'] = Handlebars.compile($("#redirect-template").html());
 
 //////////////////////////// ROUTES //////////////////////////////////////
 
@@ -20,19 +22,38 @@ routes["posts"] = {
 };
 routes["posts/new"] = {
     template: "create",
-    action: "createPost"
+    action: "createPost",
+    auth: true
 };
 routes["posts/:params"] = {
     template: "post",
 };
 routes["posts/delete/:params"] = {
     template: "post",
-    action: "deletePost"
+    action: "deletePost",
+    auth: true
 };
 routes["posts/edit/:params"] = {
     template: "edit",
-    action: "editPost"
+    action: "editPost",
+    auth: true
 };
+
+routes["login"] = {
+    template: "login",
+    action: 'Login'
+}
+routes["users/logout"] = {
+    template: "redirect",
+    action: "logout",
+    auth: true
+
+}
+routes["redirect"] = {
+    template: "redirect",
+    action: "redirect"
+}
+
 
 //////////////////////// main functions /////////////////////////////////
 /**
@@ -49,12 +70,15 @@ function fetchAndShow(url, selector, template) {
         'accepts': 'application/json'
     }).then(function (data) {
         var context = {}
+        data["logged"] = isLogged();
+        console.log("data", data);
         if (Array.isArray(data)) {
             context[template] = data;
 
         } else {
             context = data;
         }
+
         var html = templates[template](context);
         $(selector).html(html);
     }).fail(function () {
@@ -75,6 +99,15 @@ function showOnly(selector, template) {
     var html = templates[template]();
     $(selector).html(html);
 
+}
+
+function isLogged() {
+    var key = document.cookie.split('=')[0];
+    var val = document.cookie.split('=')[1];
+    if (key == 'login' && val == 1)
+        return true
+    else
+        return false;
 }
 
 function redirect(location) {
@@ -129,7 +162,11 @@ function hashRouter(event) {
         template = routeInfo["template"];
         var selector = routeInfo['selector'] || "#content";
         var action = routeInfo['action'];
-
+        if (routeInfo['auth'] && !isLogged()) {
+            pushNotice('alert-danger',"you aren't authorized ");
+            redirect("#redirect");
+            return;
+        }
         if (action)
             Actions[action](url, selector, template);
         else
@@ -181,6 +218,21 @@ var Actions =
     defaultAction: function (url, selector, template) {
         fetchAndShow(url, selector, template);
 
+    },
+    Login: function (url, selector, template) {
+        showOnly('#content', template);
+    },
+    logout: function (url, selector, template) {
+        pushNotice('alert-info', "logout now and redirecting..")
+        fetchAndShow(url, selector, template);
+        setTimeout(function () {
+            window.location = "/"
+        }, 1000);
+
+    }
+    ,
+    redirect: function (url, selector, template) {
+        showOnly('#content', template);
     }
 }
 
@@ -192,15 +244,19 @@ $('#content').delegate('input[type=submit]', 'click', function (event) {
     var data = {};
     var url = '';
     var method = '';
+    var formId;
     var msgs = {
-        "PUT": "Update",
-        "POST": "Create"
+        "edit_post": "Update post done",
+        "create_post": "Create post done",
+        'login': "logged in successfully redirecting ..."
     };
     $(event.target).parents('form').serializeArray().forEach(function (obj, k) {
         if (obj.name == "action")
             url = obj.value
         else if (obj.name == "_method")
             method = obj.value
+        else if (obj.name == "form_id")
+            formId = obj.value;
         else
             data[obj.name] = obj.value
     });
@@ -209,8 +265,16 @@ $('#content').delegate('input[type=submit]', 'click', function (event) {
         method: method,
         data: data
     }).success(function () {
-            pushNotice('alert-success', msgs[method.toUpperCase()] + " post done");
-            redirect("#posts");
+            pushNotice('alert-success', msgs[formId]);
+            console.log("url", url);
+            if (formId == 'login') {
+                redirect("#redirect");
+                setTimeout(function () {
+                    window.location = "/"
+                }, 1000);
+            } else {
+                redirect("#posts");
+            }
         })
         .fail(function () {
             pushNotice('alert-danger', "Some thing bad happened");
