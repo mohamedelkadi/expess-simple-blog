@@ -29,7 +29,11 @@ block content
                 </a></span>
             {{/if}}
             <article>
-            <div>{{content}}</div>
+            {{#if postImg}}
+                <img src={{postImg}} class="center-block" />
+            {{/if}}
+            <div class="content-body">{{content}}</div>
+
             </article>
 
     script#create-post-template(type='text/x-handlebars-template').
@@ -38,10 +42,14 @@ block content
          <input type="hidden" name ="_method" value="POST">
          <input type="hidden" name ="form_id" value="create_post">
          <input type="hidden" name ="action" value="/posts/new">
+         <input type="hidden" name='postImg' value="">
           <label> title </label>
           <input name = "title" class="form-control" type="text"></input>
           <label> description </label>
           <input name="description" class="form-control" type="text"></input>
+          <label> image </label>
+           <img id="post_img" src=""/>
+          <input type='file' name='image'/>
           <label> content </label>
          <textarea name="content" class="form-control" type="text"></textarea>
          <input type="submit" value="submit" class="btn btn-default" >
@@ -53,12 +61,18 @@ block content
           <input type="hidden" name ="_method" value="PUT">
           <input type="hidden" name ="action" value="/posts/{{_id}}">
           <input type="hidden" name ="form_id" value="edit_post">
+          <input type="hidden" name='postImg' value="">
           <label> title </label>
           <input  name = "title" class="form-control"
           type="text" value={{title}}></input>
           <label> description </label>
           <input name="description" class="form-control"
            value={{description}} type="text"></input>
+           {{#if postImg}}
+           <label> image </label>
+            <img id="post_img" src="{{postImg}} "/>
+            {{/if}}
+           <input type='file' name='image'/>
           <label> content </label>
          <textarea name="content" class="form-control" type="text">{{content}}</textarea>
          <input type="submit" value="submit" class="btn btn-default">

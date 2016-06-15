@@ -53,3 +53,18 @@ html
         script(src='/bootstrap/dist/js/bootstrap.min.js')
         script(src='/handlebars/handlebars.min.js')
         script(src='/javascripts/app.js')
+        script(type='text/javascript').
+            $(window).on('hashchange', function () {
+                var hash = window.location.hash;
+                var ident = hash.split('/')[0].replace(/^#/, '');
+                if (ident == '')
+                    ident = "Home";
+                else
+                    ident = ident[0].toUpperCase() + ident.slice(1);
+
+
+                var el = $(`nav li > a:contains(${ident})`).parent();
+                console.log(ident);
+                $('nav li').removeClass('active')
+                el.addClass('active');
+            })

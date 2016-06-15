@@ -34,3 +34,11 @@ body {
      margin: 4px;
      padding: 4px;
  }
+#post_img{
+    height: 250px;
+    display: none;
+}
+.content-body{
+    border-top: 1px dashed darkgrey ;
+    padding:10px;
+}

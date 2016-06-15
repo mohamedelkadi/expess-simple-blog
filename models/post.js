@@ -20,6 +20,9 @@ post.schema = {
         },
         description:{
             type:'string',
+        },
+        postImg:{
+            type:'string'
         }
     }
 

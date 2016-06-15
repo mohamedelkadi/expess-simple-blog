@@ -46,7 +46,6 @@ routes["login"] = {
 routes["users/logout"] = {
     template: "redirect",
     action: "logout",
-    auth: true
 
 }
 routes["redirect"] = {
@@ -163,7 +162,7 @@ function hashRouter(event) {
         var selector = routeInfo['selector'] || "#content";
         var action = routeInfo['action'];
         if (routeInfo['auth'] && !isLogged()) {
-            pushNotice('alert-danger',"you aren't authorized ");
+            pushNotice('alert-danger', "you aren't authorized ");
             redirect("#redirect");
             return;
         }
@@ -186,6 +185,27 @@ $(window).on('load', hashRouter);
 $(window).on('hashchange',
     hashRouter
 );
+
+/////////////////////////image upload ////////////////////////////////
+var file;
+if (file = $('input[type=file]')) {
+    console.log("file found");
+    $('#content').delegate(file, 'change', function () {
+        console.log("file changed");
+        console.log(file);
+        var url = $('input[type=file]').prop('files')[0];
+        var prvImg = $('form #post_img');
+        var reader = new FileReader();
+        reader.readAsDataURL(url);
+        reader.onloadend = function () {
+            var res = reader.result;
+            prvImg.attr('src', res);
+            prvImg.css('display','block')
+            $('input[name=postImg]').attr('value', res);
+        }
+    })
+
+}
 
 //////////////////////////////////////////Actions///////////////////////////////////
 var Actions =
